@@ -19,11 +19,11 @@ export default function Projects() {
           className="max-w-7xl mx-auto w-full pt-20 sm:pt-0"
         >
           <div className="flex flex-col items-start justify-between">
-            <div className="max-w-2xl w-full">
+            <div className="max-w-3xl w-full">
               <h1 className="text-4xl sm:text-7xl font-bold mb-4 sm:mb-8">
                 Introducing<br />Expedition
               </h1>
-              <p className="text-base sm:text-xl text-gray-400">
+              <p className="text-base sm:text-xl text-gray-400 max-w-2xl">
                 Expedition is a Roblox game that is about opening doors and trying to survive monsters. It shouldn't be played by users with epilepsy.
               </p>
               <div className="coming-soon mt-4">Coming Soon.</div>
@@ -53,27 +53,9 @@ export default function Projects() {
                 alt="MonarchOS Logo" 
                 width={400} 
                 height={400}
-                className="w-full max-w-[300px] lg:max-w-[400px] h-auto mx-auto"
+                className="w-full max-w-[300px] lg:max-w-[350px] h-auto mx-auto"
                 priority
               />
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="max-w-7xl mx-auto w-full"
-        >
-          <div className="flex flex-col items-start justify-between">
-            <div className="max-w-2xl w-full">
-              <h2 className="text-4xl sm:text-7xl font-bold mb-4 sm:mb-8">
-                Random stuff
-              </h2>
-              <p className="text-base sm:text-xl text-gray-400">
-                As the name suggests, random stuff that is not meant to be seen by the world.
-              </p>
             </div>
           </div>
         </motion.div>
