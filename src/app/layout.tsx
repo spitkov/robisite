@@ -5,8 +5,22 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Robi Site",
-  description: "A modern, animated website",
+  title: "Robisoft",
+  description: "I'm Dan",
+  openGraph: {
+    title: 'Robisoft',
+    description: "I'm Dan",
+    url: 'https://robisoft.spitkov.hu',
+    siteName: 'Robisoft',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Robisoft',
+    description: "I'm Dan",
+  },
+  metadataBase: new URL('https://robisoft.spitkov.hu')
 };
 
 export default function RootLayout({
