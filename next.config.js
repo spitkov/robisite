@@ -6,15 +6,11 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  poweredByHeader: false,
+  compress: true,
+  httpAgentOptions: {
+    keepAlive: true,
+  },
 }
 
-module.exports = {
-  ...nextConfig,
-  async rewrites() {
-    return []
-  },
-  // Change port to 3003
-  server: {
-    port: 3003,
-  },
-} 
+module.exports = nextConfig 
