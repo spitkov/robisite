@@ -4,8 +4,12 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
-const getSpreadPositions = () => {
-  const sections = [
+const getSpreadPositions = (isMobile: boolean) => {
+  const sections = isMobile ? [
+    { xRange: [0, 40], yRange: [10, 30] },    // Top
+    { xRange: [20, 60], yRange: [40, 60] },   // Middle
+    { xRange: [0, 40], yRange: [70, 90] },    // Bottom
+  ] : [
     { xRange: [5, 30], yRange: [10, 40] },    // Top left
     { xRange: [60, 85], yRange: [10, 40] },   // Top right
     { xRange: [30, 60], yRange: [50, 70] },   // Middle
@@ -22,6 +26,7 @@ const getSpreadPositions = () => {
 export default function BlurCircles() {
   const pathname = usePathname()
   const [mounted, setMounted] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const [positions, setPositions] = useState([
     { x: 20, y: 20 },
     { x: 60, y: 20 },
@@ -30,30 +35,47 @@ export default function BlurCircles() {
 
   const { scrollYProgress } = useScroll()
   
-  const circle1Y = useTransform(scrollYProgress, [0, 1], ["0%", "100%"])
-  const circle2Y = useTransform(scrollYProgress, [0, 1], ["0%", "-80%"])
-  const circle3Y = useTransform(scrollYProgress, [0, 1], ["0%", "120%"])
+  const circle1Y = useTransform(scrollYProgress, [0, 1], ["0%", isMobile ? "60%" : "100%"])
+  const circle2Y = useTransform(scrollYProgress, [0, 1], ["0%", isMobile ? "-40%" : "-80%"])
+  const circle3Y = useTransform(scrollYProgress, [0, 1], ["0%", isMobile ? "80%" : "120%"])
 
-  const circle1X = useTransform(scrollYProgress, [0, 0.5, 1], ["0%", "30%", "-30%"])
-  const circle2X = useTransform(scrollYProgress, [0, 0.5, 1], ["0%", "-40%", "40%"])
-  const circle3X = useTransform(scrollYProgress, [0, 0.5, 1], ["0%", "50%", "-50%"])
+  const circle1X = useTransform(scrollYProgress, [0, 0.5, 1], ["0%", isMobile ? "20%" : "30%", isMobile ? "-20%" : "-30%"])
+  const circle2X = useTransform(scrollYProgress, [0, 0.5, 1], ["0%", isMobile ? "-25%" : "-40%", isMobile ? "25%" : "40%"])
+  const circle3X = useTransform(scrollYProgress, [0, 0.5, 1], ["0%", isMobile ? "30%" : "50%", isMobile ? "-30%" : "-50%"])
 
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    
+    checkMobile()
     setMounted(true)
-    setPositions(getSpreadPositions())
+    
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
+  useEffect(() => {
+    setPositions(getSpreadPositions(isMobile))
+  }, [isMobile])
+
   const floatingAnimation = {
-    x: [0, 30, -30, 0],
-    y: [0, -30, 30, 0],
+    x: [0, isMobile ? 15 : 30, isMobile ? -15 : -30, 0],
+    y: [0, isMobile ? -15 : -30, isMobile ? 15 : 30, 0],
     transition: {
-      duration: 15,
+      duration: isMobile ? 10 : 15,
       repeat: Infinity,
       ease: "linear"
     }
   }
 
   if (!mounted) return null
+
+  const circleClasses = {
+    large: isMobile ? "w-[200px] h-[200px]" : "w-[400px] h-[400px]",
+    medium: isMobile ? "w-[175px] h-[175px]" : "w-[350px] h-[350px]",
+    small: isMobile ? "w-[150px] h-[150px]" : "w-[300px] h-[300px]",
+  }
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none">
@@ -76,7 +98,7 @@ export default function BlurCircles() {
           y: circle1Y,
           x: circle1X
         }}
-        className="absolute w-[400px] h-[400px] rounded-full bg-[#FF6B00] blur-circle"
+        className={`absolute rounded-full bg-[#FF6B00] blur-circle ${circleClasses.large}`}
       >
         <motion.div 
           className="w-full h-full"
@@ -103,7 +125,7 @@ export default function BlurCircles() {
           y: circle2Y,
           x: circle2X
         }}
-        className="absolute w-[300px] h-[300px] rounded-full bg-[#FFD600] blur-circle"
+        className={`absolute rounded-full bg-[#FFD600] blur-circle ${circleClasses.small}`}
       >
         <motion.div 
           className="w-full h-full"
@@ -136,7 +158,7 @@ export default function BlurCircles() {
           y: circle3Y,
           x: circle3X
         }}
-        className="absolute w-[350px] h-[350px] rounded-full bg-[#FF9900] blur-circle"
+        className={`absolute rounded-full bg-[#FF9900] blur-circle ${circleClasses.medium}`}
       >
         <motion.div 
           className="w-full h-full"
