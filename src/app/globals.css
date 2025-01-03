@@ -2,20 +2,69 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer components {
+  .hover-underline {
+    @apply relative;
+  }
+  
+  .hover-underline::after {
+    @apply content-[''] absolute h-[2px] w-0 left-0 -bottom-[2px]
+    transition-all duration-300;
+    background-color: #FF8A00;
+  }
+  
+  .hover-underline:hover::after {
+    @apply w-full;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+.blur-circle {
+  filter: blur(120px);
+  transform: translate3d(0, 0, 0);
+  mix-blend-mode: screen;
+}
+
+html {
+  scroll-behavior: smooth !important;
+  scroll-padding-top: 100px;
+  -webkit-overflow-scrolling: touch;
+  overflow-y: scroll;
+}
+
+html, body {
+  @apply bg-black text-white font-sans;
+  scroll-behavior: smooth !important;
+}
+
+.smooth-scroll {
+  scroll-behavior: smooth !important;
+  transition: all 0.5s ease-in-out;
+}
+
+.logo {
+  @apply text-[#00FF66] font-bold;
+}
+
+.section-transition {
+  @apply transition-all duration-700 ease-in-out;
+}
+
+.coming-soon {
+  @apply text-xs uppercase tracking-widest text-gray-500 mt-8;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-black;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-[#00FF66] rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-[#00FF66]/80;
 }

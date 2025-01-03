@@ -1,101 +1,156 @@
-import Image from "next/image";
+'use client'
+
+import { motion, useScroll, useTransform } from 'framer-motion'
+import Image from 'next/image'
+import { useRef } from 'react'
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const containerRef = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  })
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const circle1Y = useTransform(scrollYProgress, [0, 0.5, 1], ["0%", "120%", "-50%"])
+  const circle1X = useTransform(scrollYProgress, [0, 0.5, 1], ["0%", "30%", "-30%"])
+  
+  const circle2Y = useTransform(scrollYProgress, [0, 0.5, 1], ["0%", "-80%", "100%"])
+  const circle2X = useTransform(scrollYProgress, [0, 0.5, 1], ["0%", "-40%", "40%"])
+  
+  const circle3Y = useTransform(scrollYProgress, [0, 0.5, 1], ["0%", "70%", "-120%"])
+  const circle3X = useTransform(scrollYProgress, [0, 0.5, 1], ["0%", "50%", "-20%"])
+
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId)
+    if (section) {
+      section.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      })
+    }
+  }
+
+  return (
+    <div className="relative min-h-screen w-full smooth-scroll" ref={containerRef}>
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.6 }}
+          style={{ y: circle1Y, x: circle1X }}
+          transition={{ duration: 1 }}
+          className="absolute top-[20%] right-[10%] w-[400px] h-[400px] rounded-full bg-[#FF6B00] blur-circle"
+        />
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.6 }}
+          style={{ y: circle2Y, x: circle2X }}
+          transition={{ duration: 1, delay: 0.2 }}
+          className="absolute bottom-[20%] left-[30%] w-[300px] h-[300px] rounded-full bg-[#FFD600] blur-circle"
+        />
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.5 }}
+          style={{ y: circle3Y, x: circle3X }}
+          transition={{ duration: 1, delay: 0.4 }}
+          className="absolute top-[50%] left-[10%] w-[350px] h-[350px] rounded-full bg-[#FF9900] blur-circle"
+        />
+      </div>
+
+      <nav className="fixed top-0 left-0 right-0 z-50 px-8 py-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Image 
+                src="/robisoft.png" 
+                alt="Robisoft Logo" 
+                width={150} 
+                height={36} 
+                className="h-9 w-auto"
+              />
+            </div>
+            <div className="flex items-center space-x-8">
+              {[
+                ['HOME', 'home'],
+                ['PROJECTS', 'projects'],
+                ['ABOUT', 'about'],
+                ['DISCORD', 'https://discord.gg/T8sYvQ6zhg']
+              ].map(([label, target]) => (
+                <motion.button
+                  key={label}
+                  onClick={() => target.startsWith('http') ? window.open(target, '_blank') : scrollToSection(target)}
+                  className="hover-underline text-white text-sm font-medium"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {label}
+                </motion.button>
+              ))}
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+      </nav>
+
+      <section id="home" className="min-h-screen flex flex-col justify-center px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="max-w-5xl mx-auto text-center"
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          <h1 className="text-7xl md:text-8xl font-bold mb-6">
+            Welcome to<br />Robisoft.
+          </h1>
+          <p className="text-xl md:text-2xl text-gray-400">
+            The home of random projects.
+          </p>
+        </motion.div>
+      </section>
+
+      <section id="projects" className="min-h-screen flex flex-col justify-center px-8">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="max-w-7xl mx-auto w-full"
         >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          <div className="flex items-center justify-between">
+            <div className="max-w-2xl">
+              <h2 className="text-5xl md:text-6xl font-bold mb-6">Our main project:<br />MonarchOS</h2>
+              <p className="text-xl md:text-2xl text-gray-400">
+                MonarchOS is a project based on Android and Arch Linux. It has useful features like Hyper.Dot and a unique design that has never been seen before
+              </p>
+              <div className="coming-soon text-base">COMING SOON</div>
+            </div>
+            <div className="relative">
+              <Image 
+                src="/monarchos.png" 
+                alt="MonarchOS Logo" 
+                width={400} 
+                height={400}
+                className="w-auto h-auto"
+              />
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
+      <section id="about" className="min-h-screen flex flex-col justify-center px-8">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="max-w-5xl mx-auto"
         >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          <h2 className="text-5xl md:text-6xl font-bold mb-6">Robisoft Reimagined</h2>
+          <p className="text-xl md:text-2xl text-gray-400 max-w-2xl">
+            A place where we announce new stuff coming our way,<br />
+            happens at every year's end.
+          </p>
+          <div className="coming-soon text-base">COMING SOON</div>
+        </motion.div>
+      </section>
     </div>
-  );
+  )
 }
