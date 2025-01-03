@@ -11,12 +11,12 @@ export default function About() {
       <BlurCircles />
       <Navbar />
 
-      <div className="min-h-screen flex flex-col justify-between px-8 py-16">
+      <div className="min-h-screen flex flex-col justify-start md:justify-between px-4 sm:px-8 py-24 md:py-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="max-w-7xl mx-auto w-full text-center mt-20"
+          className="max-w-7xl mx-auto w-full text-center mt-0 md:mt-20"
         >
           <h1 className="text-7xl md:text-8xl font-bold mb-8">
             About Robisoft
