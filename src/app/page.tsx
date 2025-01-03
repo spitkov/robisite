@@ -83,7 +83,7 @@ export default function Home() {
           <h2 className="text-5xl md:text-6xl font-bold mb-6">Robisoft Reimagined</h2>
           <p className="text-xl md:text-2xl text-[#8491A0] max-w-2xl">
             A place where we announce new stuff coming our way,<br />
-            happens at every year's end.
+            happens at every year&apos;s end.
           </p>
           <div className="coming-soon">COMING SOON</div>
         </motion.div>

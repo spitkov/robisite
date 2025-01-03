@@ -39,7 +39,7 @@ export default function Projects() {
                 Introducing<br />Expedition
               </h1>
               <p className="text-base sm:text-xl text-[#8491A0] max-w-2xl">
-                Expedition is a Roblox game that is about opening doors and trying to survive monsters. It shouldn't be played by users with epilepsy.
+                Expedition is a Roblox game that is about opening doors and trying to survive monsters. It shouldn&apos;t be played by users with epilepsy.
               </p>
               <div className="text-xs uppercase tracking-widest text-[#8491A0] mt-8">Coming Soon.</div>
             </div>

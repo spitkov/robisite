@@ -1,7 +1,6 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import BlurCircles from '../components/BlurCircles'
 import Navbar from '../components/Navbar'
@@ -37,16 +36,19 @@ export default function About() {
             About Robisoft
           </h1>
           <p className="text-2xl text-gray-400 max-w-3xl mx-auto mb-16">
-            Robisoft is a small "company" that makes random projects
+            Robisoft is a small &quot;company&quot; that makes random projects
           </p>
           
           <div className="mt-16">
             <h2 className="text-3xl font-medium mb-8">What Dan (Owner) is doing:</h2>
             <div className="inline-block">
-              <img 
+              <motion.img 
                 src="https://lanyard.cnrad.dev/api/1245050169398132787" 
                 alt="Discord Activity"
                 className="rounded-lg shadow-lg"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
               />
             </div>
           </div>
