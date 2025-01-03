@@ -1,94 +1,18 @@
 'use client'
 
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { useRef } from 'react'
+import BlurCircles from './components/BlurCircles'
+import Navbar from './components/Navbar'
 
 export default function Home() {
   const containerRef = useRef(null)
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  })
-
-  const circle1Y = useTransform(scrollYProgress, [0, 0.5, 1], ["0%", "120%", "-50%"])
-  const circle1X = useTransform(scrollYProgress, [0, 0.5, 1], ["0%", "30%", "-30%"])
-  
-  const circle2Y = useTransform(scrollYProgress, [0, 0.5, 1], ["0%", "-80%", "100%"])
-  const circle2X = useTransform(scrollYProgress, [0, 0.5, 1], ["0%", "-40%", "40%"])
-  
-  const circle3Y = useTransform(scrollYProgress, [0, 0.5, 1], ["0%", "70%", "-120%"])
-  const circle3X = useTransform(scrollYProgress, [0, 0.5, 1], ["0%", "50%", "-20%"])
-
-  const scrollToSection = (sectionId: string) => {
-    const section = document.getElementById(sectionId)
-    if (section) {
-      section.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      })
-    }
-  }
 
   return (
     <div className="relative min-h-screen w-full smooth-scroll" ref={containerRef}>
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.6 }}
-          style={{ y: circle1Y, x: circle1X }}
-          transition={{ duration: 1 }}
-          className="absolute top-[20%] right-[10%] w-[400px] h-[400px] rounded-full bg-[#FF6B00] blur-circle"
-        />
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.6 }}
-          style={{ y: circle2Y, x: circle2X }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="absolute bottom-[20%] left-[30%] w-[300px] h-[300px] rounded-full bg-[#FFD600] blur-circle"
-        />
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.5 }}
-          style={{ y: circle3Y, x: circle3X }}
-          transition={{ duration: 1, delay: 0.4 }}
-          className="absolute top-[50%] left-[10%] w-[350px] h-[350px] rounded-full bg-[#FF9900] blur-circle"
-        />
-      </div>
-
-      <nav className="fixed top-0 left-0 right-0 z-50 px-8 py-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Image 
-                src="/robisoft.png" 
-                alt="Robisoft Logo" 
-                width={150} 
-                height={36} 
-                className="h-9 w-auto"
-              />
-            </div>
-            <div className="flex items-center space-x-8">
-              {[
-                ['HOME', 'home'],
-                ['PROJECTS', 'projects'],
-                ['ABOUT', 'about'],
-                ['DISCORD', 'https://discord.gg/T8sYvQ6zhg']
-              ].map(([label, target]) => (
-                <motion.button
-                  key={label}
-                  onClick={() => target.startsWith('http') ? window.open(target, '_blank') : scrollToSection(target)}
-                  className="hover-underline text-white text-sm font-medium"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {label}
-                </motion.button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </nav>
+      <BlurCircles />
+      <Navbar />
 
       <section id="home" className="min-h-screen flex flex-col justify-center px-8">
         <motion.div
