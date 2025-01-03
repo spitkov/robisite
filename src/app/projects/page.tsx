@@ -2,12 +2,27 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 import BlurCircles from '../components/BlurCircles'
 import Navbar from '../components/Navbar'
 
 export default function Projects() {
+  const [isLoaded, setIsLoaded] = useState(false)
+
+  useEffect(() => {
+    setIsLoaded(true)
+  }, [])
+
+  if (!isLoaded) {
+    return (
+      <div className="fixed inset-0 bg-black">
+        <Navbar />
+      </div>
+    )
+  }
+
   return (
-    <div className="relative min-h-screen w-full">
+    <div className="relative min-h-screen w-full bg-black">
       <BlurCircles />
       <Navbar />
 
