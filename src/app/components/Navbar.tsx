@@ -105,7 +105,7 @@ export default function Navbar() {
               exit="closed"
               variants={menuVariants}
               transition={{ duration: 0.3 }}
-              className="md:hidden absolute left-0 right-0 top-full mt-2 px-8 py-4 bg-black/30 backdrop-blur-md pointer-events-auto"
+              className="md:hidden absolute left-0 right-0 top-full mt-2 px-8 py-4 bg-white/80 backdrop-blur-md pointer-events-auto"
             >
               <div className="flex flex-col space-y-4">
                 {menuItems.map(([label, path]) => (
@@ -119,7 +119,7 @@ export default function Navbar() {
                         href={path}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-white text-sm font-medium block"
+                        className="text-black text-sm font-medium block"
                         onClick={() => setIsOpen(false)}
                       >
                         {label}
@@ -127,7 +127,7 @@ export default function Navbar() {
                     ) : (
                       <Link href={path}>
                         <span
-                          className="text-white text-sm font-medium block"
+                          className="text-black text-sm font-medium block"
                           onClick={() => setIsOpen(false)}
                         >
                           {label}
