@@ -6,10 +6,10 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Robisoft",
-  description: "I'm Dan",
+  description: "Welcome to Robisoft",
   openGraph: {
     title: 'Robisoft',
-    description: "I'm Dan",
+    description: "Welcome to Robisoft",
     url: 'https://robisoft.spitkov.hu',
     siteName: 'Robisoft',
     locale: 'en_US',
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary',
     title: 'Robisoft',
-    description: "I'm Dan",
+    description: "Welcome to Robisoft",
   },
   metadataBase: new URL('https://robisoft.spitkov.hu')
 };
