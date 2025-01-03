@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    background-color: black;
+  }
+}
+
 @layer components {
   .hover-underline {
     @apply relative;
@@ -29,6 +35,7 @@ html {
   scroll-padding-top: 100px;
   -webkit-overflow-scrolling: touch;
   overflow-y: scroll;
+  background-color: black;
 }
 
 html, body {
@@ -50,7 +57,7 @@ html, body {
 }
 
 .coming-soon {
-  @apply text-xs uppercase tracking-widest text-gray-500 mt-8;
+  @apply text-xs uppercase tracking-widest text-[#8491A0] mt-8;
 }
 
 /* Custom Scrollbar */
