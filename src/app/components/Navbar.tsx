@@ -105,7 +105,7 @@ export default function Navbar() {
               exit="closed"
               variants={menuVariants}
               transition={{ duration: 0.3 }}
-              className="md:hidden absolute left-0 right-0 top-full mt-2 px-8 py-4 bg-black/90 backdrop-blur-sm pointer-events-auto"
+              className="md:hidden absolute left-0 right-0 top-full mt-2 px-8 py-4 bg-black/30 backdrop-blur-md pointer-events-auto"
             >
               <div className="flex flex-col space-y-4">
                 {menuItems.map(([label, path]) => (
