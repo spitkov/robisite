@@ -53,8 +53,9 @@ html, body {
   @apply text-xs uppercase tracking-widest text-gray-500 mt-8;
 }
 
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -62,9 +63,16 @@ html, body {
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-[#00FF66] rounded-full;
+  @apply bg-[#FF8A00] rounded-full;
+  border: 2px solid #000;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-[#00FF66]/80;
+  @apply bg-[#FF8A00]/80;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #FF8A00 #000000;
 }
